@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>記帳｜MoneyBook</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <script type="module" src="./js/edit.js"></script>
+</head>
+<body data-requires-settings>
+  <main id="main" class="page-shell page-shell-narrow">
+    <header class="page-heading"><h1 id="edit-heading">新增記錄</h1></header>
+    <section class="surface" aria-labelledby="transaction-heading">
+      <h2 id="transaction-heading">交易資料</h2>
+      <form id="transaction-form" novalidate>
+        <fieldset id="transaction-fields" class="field-grid" disabled>
+          <legend class="visually-hidden">交易欄位</legend>
+          <div class="field-wide">
+            <label class="form-label" for="title">交易名稱</label>
+            <input class="form-control" id="title" type="text" required aria-describedby="title-error">
+            <div class="invalid-feedback" id="title-error"></div>
+          </div>
+          <div>
+            <label class="form-label" for="date">交易日期</label>
+            <input class="form-control" id="date" type="date" min="0001-01-01" max="9999-12-31" required aria-describedby="date-error">
+            <div class="invalid-feedback" id="date-error"></div>
+          </div>
+          <div>
+            <label class="form-label" for="amount">金額（NT$）</label>
+            <input class="form-control" id="amount" type="number" inputmode="numeric" min="1" step="1" required aria-describedby="amount-error">
+            <div class="invalid-feedback" id="amount-error"></div>
+          </div>
+          <div>
+            <label class="form-label" for="type">收支類型</label>
+            <select class="form-select" id="type" required aria-describedby="type-error">
+              <option value="">請選擇</option><option>收入</option><option>支出</option>
+            </select>
+            <div class="invalid-feedback" id="type-error"></div>
+          </div>
+          <div>
+            <label class="form-label" for="category">分類</label>
+            <select class="form-select" id="category" required disabled aria-describedby="category-error"><option value="">請先選擇收支類型</option></select>
+            <div class="invalid-feedback" id="category-error"></div>
+          </div>
+          <div>
+            <label class="form-label" for="payment-method">收付款方式</label>
+            <select class="form-select" id="payment-method" required aria-describedby="payment-method-error">
+              <option value="">請選擇</option><option>現金</option><option>刷卡</option><option>銀行轉帳</option><option>行動支付</option><option>其他</option>
+            </select>
+            <div class="invalid-feedback" id="payment-method-error"></div>
+          </div>
+          <div class="field-wide">
+            <label class="form-label" for="note">備註（選填）</label>
+            <input class="form-control" id="note" type="text">
+          </div>
+        </fieldset>
+        <div class="settings-actions mt-4">
+          <button class="btn btn-primary" id="save-transaction" type="submit" disabled>儲存記錄</button>
+          <a class="btn btn-outline-secondary" id="cancel-transaction" href="./index.html">取消</a>
+        </div>
+        <p id="transaction-loading" class="secondary mt-3 mb-0" role="status" hidden>
+          <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span><span id="transaction-loading-message">正在儲存…</span>
+        </p>
+        <p id="transaction-feedback" class="alert alert-danger mt-3 mb-0" role="alert" hidden></p>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

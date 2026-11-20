@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>月明細｜MoneyBook</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="./js/index.js"></script>
+</head>
+<body data-requires-settings>
+  <main id="main" class="page-shell">
+    <header class="page-heading">
+      <div>
+        <h1>月明細</h1>
+        <p id="month-label" class="secondary mb-0"></p>
+      </div>
+      <a class="btn btn-primary" href="./edit.html">新增記錄</a>
+    </header>
+    <div class="d-flex flex-wrap align-items-end gap-2 mb-3" role="group" aria-label="月份切換">
+      <button class="btn btn-outline-secondary" id="previous-month" type="button" disabled>上月</button>
+      <div>
+        <label class="form-label mb-1" for="month-picker">月份</label>
+        <input class="form-control" id="month-picker" type="month" min="0001-01" max="9999-12" placeholder="YYYY-MM" disabled>
+      </div>
+      <button class="btn btn-outline-secondary" id="next-month" type="button" disabled>下月</button>
+    </div>
+    <p id="transaction-notice" role="status" hidden></p>
+    <dl class="summary-grid" aria-label="每月收支摘要">
+      <div class="surface"><dt>總收入</dt><dd id="income-total">—</dd></div>
+      <div class="surface"><dt>總支出</dt><dd id="expense-total">—</dd></div>
+      <div class="surface"><dt>結餘</dt><dd id="balance">—</dd></div>
+    </dl>
+    <section class="surface" aria-labelledby="details-heading">
+      <h2 id="details-heading" tabindex="-1">收支明細</h2>
+      <div id="transactions-loading" class="secondary" role="status" hidden>
+        <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>正在載入本月收支…
+      </div>
+      <div id="transactions-error" class="alert alert-danger mb-0" hidden>
+        <p id="transactions-error-message" class="mb-2" role="alert"></p>
+        <button id="transactions-retry" class="btn btn-sm btn-outline-danger" type="button">重新載入</button>
+        <a class="btn btn-sm btn-outline-secondary" href="./settings.html">前往設定</a>
+      </div>
+      <p id="transactions-status" class="secondary mb-0" role="status"></p>
+      <div id="transactions-table" class="table-responsive mt-3" role="region" aria-labelledby="details-heading" tabindex="0" hidden>
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th class="text-nowrap" scope="col">交易日期</th>
+              <th class="text-nowrap" scope="col">交易名稱</th>
+              <th class="text-nowrap" scope="col">類型</th>
+              <th class="text-nowrap" scope="col">分類</th>
+              <th class="text-nowrap" scope="col">收付款方式</th>
+              <th class="text-nowrap text-end" scope="col">金額</th>
+              <th class="text-nowrap" scope="col">備註</th>
+              <th class="text-nowrap" scope="col">操作</th>
+            </tr>
+          </thead>
+          <tbody id="transactions-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="delete-heading" aria-describedby="delete-summary" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header"><h2 class="modal-title fs-5" id="delete-heading">刪除交易記錄？</h2></div>
+        <div class="modal-body">
+          <p id="delete-summary"></p>
+          <p class="mb-0">刪除後無法從 MoneyBook 復原。</p>
+          <p class="alert alert-danger mt-3 mb-0" id="delete-error" role="alert" hidden></p>
+          <p class="secondary mt-3 mb-0" id="delete-loading" role="status" hidden>
+            <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>正在刪除…
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" id="cancel-delete" type="button" data-bs-dismiss="modal">取消</button>
+          <button class="btn btn-danger" id="confirm-delete" type="button">確認刪除</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
